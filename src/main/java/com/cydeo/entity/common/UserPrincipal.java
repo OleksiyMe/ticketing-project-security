@@ -57,6 +57,12 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
+
         return this.user.isEnabled();
     }
+
+    public long getId(){
+        return this.user.getId();
+    }
+
 }
