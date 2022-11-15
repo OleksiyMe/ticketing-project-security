@@ -19,7 +19,8 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
+    //hardcoded temporary users
+  /*  @Bean
     public UserDetailsService userDetailsService(PasswordEncoder encoder) {
 
         List<UserDetails> userList = new ArrayList<>();
@@ -34,7 +35,7 @@ public class SecurityConfig {
         ));
 
         return new InMemoryUserDetailsManager(userList);
-    }
+    }*/
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -42,12 +43,13 @@ public class SecurityConfig {
 
         return http
                 .authorizeRequests()
-                .antMatchers("/user/**").hasRole("ADMIN")
-                .antMatchers("/project/**").hasRole("MANAGER")
-                .antMatchers("/task/employee/**").hasRole("EMPLOYEE")
-                .antMatchers("/task/**").hasRole("MANAGER")
+//                .antMatchers("/user/**").hasRole("ADMIN")
+//                .antMatchers("/project/**").hasRole("MANAGER")
+//                .antMatchers("/task/employee/**").hasRole("EMPLOYEE")
+//                .antMatchers("/task/**").hasRole("MANAGER")
 //                .antMatchers("/task/**").hasAnyRole("EMPLOYEE","ADMIN")
-                .antMatchers("/task/**").hasAuthority("ROLE_EMPLOYEE")
+//                .antMatchers("/task/**").hasAuthority("ROLE_EMPLOYEE")
+                .antMatchers("/user/**").hasAuthority("Admin")
                 .antMatchers(
                         "/",
                         "/login",
