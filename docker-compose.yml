@@ -1,0 +1,17 @@
+vervion: 3.7
+
+services:
+  mypostgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=ticketing-app
+
+  ticketing-app:
+
+networks:
+  webnet:
+    driver: bridge
+
+volumes:
