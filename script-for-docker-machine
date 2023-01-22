@@ -1,0 +1,30 @@
+#Check for running container & stop it before starting a new one
+docker stop ticketingsecurity
+docker rmi ticketingsecurity
+docker rm ticketingsecurity
+
+aws configure set aws_access_key_id SDFGSDFGEXVPPKS
+aws configure set aws_secret_access_key ASDFGASDFGSDFnXSc5QR0z4cLu0E
+aws configure set default.region us-east-90
+
+aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 494615807414.dkr.ecr.us-east-2.amazonaws.com
+
+echo "Pulling latest Image name: 494615807414.dkr.ecr.us-east-2.amazonaws.com/ticketingsecurity:latest"
+
+docker pull 494615807414.dkr.ecr.us-east-2.amazonaws.com/ticketingsecurity
+
+echo "Starting sing Docker Image name: 494615807414.dkr.ecr.us-east-2.amazonaws.com/ticketingsecurity:latest"
+
+#docker run --rm -d ${DOCKER_OPTS} --name ticketingsecurity
+494615807414.dkr.ecr.us-east-2.amazonaws.com/ticketingsecurity:latest
+
+docker run -d -p 8080:8080 --name ticketingsecurity 494615807414.dkr.ecr.us-east-2.amazonaws.com/ticketingsecurity
+
+echo "Cleaning old docker images"
+#docker rmi $(docker images -f dangling=true -q)
+if [[ $(docker images | grep ticketingsecurity | grep none | awk '{print $3}') ]]; then
+    docker rmi $(docker images | grep ticketingsecurity | grep none | awk '{print $3}')
+else
+    echo "No old images found"
+fi
+docker ps -a
